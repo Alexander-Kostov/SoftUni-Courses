@@ -1,0 +1,1 @@
+SELECT DISTINCT `SALARY` AS `Salary` FROM `employees`;

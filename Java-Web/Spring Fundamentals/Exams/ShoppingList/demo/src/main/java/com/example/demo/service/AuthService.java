@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
+import com.example.demo.model.dto.LoginDTO;
 import com.example.demo.model.dto.RegisterDTO;
 import com.example.demo.model.entity.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.session.LoggedUser;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,8 +14,11 @@ public class AuthService {
 
     private UserRepository userRepository;
 
-    public AuthService(UserRepository userRepository) {
+    private LoggedUser loggedUser;
+
+    public AuthService(UserRepository userRepository, LoggedUser loggedUser) {
         this.userRepository = userRepository;
+        this.loggedUser = loggedUser;
     }
 
     public boolean register(RegisterDTO registerDTO) {
@@ -43,5 +48,20 @@ public class AuthService {
 
         return true;
 
+    }
+
+    public boolean login(LoginDTO loginDTO) {
+
+        Optional<User> byUsernameAndPassword = this.userRepository.findByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
+
+        if(byUsernameAndPassword.isEmpty()) {
+            return false;
+        }
+
+        User user = byUsernameAndPassword.get();
+
+        this.loggedUser.login(user);
+
+        return true;
     }
 }

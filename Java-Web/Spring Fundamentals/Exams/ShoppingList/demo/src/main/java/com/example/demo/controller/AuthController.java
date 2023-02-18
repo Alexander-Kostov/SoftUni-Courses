@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.dto.LoginDTO;
 import com.example.demo.model.dto.RegisterDTO;
 import com.example.demo.service.AuthService;
+import com.example.demo.session.LoggedUser;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AuthController {
 
     private AuthService authService;
+
 
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -69,6 +71,12 @@ public class AuthController {
             return "redirect:/login";
         }
 
+        if(!this.authService.login(loginDTO)) {
+            redirectAttributes.addFlashAttribute("loginDTO", loginDTO);
+            redirectAttributes.addFlashAttribute("badCredentials", true);
+
+            return "redirect:/login";
+        }
 
 
         return "redirect:/home";

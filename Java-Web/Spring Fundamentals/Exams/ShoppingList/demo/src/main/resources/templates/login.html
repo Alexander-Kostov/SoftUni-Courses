@@ -36,6 +36,7 @@
     <form class="mx-auto w-25 bg-blur" th:action="@{/login}" th:method="post" th:object="${loginDTO}">
 
         <br/>
+        <p th:if="${badCredentials}" th:class="text-danger"> Incorrect username or password</p>
             <p th:class="text-danger"
             th:if="${#fields.hasErrors('username')}">
                 Username must be between 3 and 20 characters

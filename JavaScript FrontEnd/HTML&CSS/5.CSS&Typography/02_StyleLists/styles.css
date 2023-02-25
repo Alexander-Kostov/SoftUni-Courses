@@ -1,0 +1,23 @@
+.bodyClass {
+    font-family: Helvetica, sans-serif;
+    line-height: 1.5;
+    font-size: 18;
+    background-color: #ededed;
+}
+
+.headingClass {
+    text-decoration: underline;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 3px;
+    background-color: #3B516B;
+    color: floralwhite;
+    letter-spacing: 3px;
+    border-radius: 10px;
+}
+
+.listItem {
+    margin-left: 20px;
+}
